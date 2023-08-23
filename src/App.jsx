@@ -1,4 +1,4 @@
-import React,{ useState} from 'react';
+import React,{ useState,useEffect} from 'react';
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -27,41 +27,75 @@ const personData = [
     lastname: 'Shrestha',
     address: 'Kirtipur',
     age: 37
+  },
+  {
+    firstname: 'Rabina',
+    lastname: 'Maharjan',
+    address: 'Kirtipur 2',
+    age: 30
   }
 ];
 
 const columnHelper = createColumnHelper();
 const columns = [
   columnHelper.accessor('firstname',{
-    cell: data => data.getValue()
+    cell: cellInfo => cellInfo.getValue()
   }),
   columnHelper.accessor('lastname',{
-    cell: data => data.getValue()
+    cell: cellInfo => cellInfo.getValue()
   }),
   columnHelper.accessor('address',{
-    cell: data => data.getValue()
+    cell: cellInfo => cellInfo.getValue()
   }),
   columnHelper.accessor('age',{
-    cell: data => data.getValue()
+    cell: cellInfo => cellInfo.getValue()
   })
 ] 
 
 function App() {
-  const [data,setData] = useState([...personData]);
+  const [data,setData] = useState([]);
 
-  const table = {
+  const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel
-  }
+  });
+  useEffect(()=>{
+    setData(personData);
+  },[])
+
+  console.log('asdhga',columns);
   return (
     <div className="basic-table">
       <h1>Basic Table</h1>
       <table>
         <thead>
-          
+          {table.getHeaderGroups().map(headerGroup=>(
+            <tr>
+              {headerGroup.headers.map(header => (
+                <th key={header.id}>
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </th>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody>
+          {table.getRowModel().rows.map(row => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map(cell=>(
+                <td key={cell.id}>
+                  {flexRender(
+                    cell.column.columnDef.cell,
+                    cell.getContext()
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
         
         </tbody>
       </table>
