@@ -7,48 +7,13 @@ import {
   getSortedRowModel,
   getFilteredRowModel
 } from '@tanstack/react-table';
-import personData from '../DATA.json';
+import personData from '../../DATA.json';
 
-const columns = [
-  {
-    header: 'ID',
-    accessorKey: 'id'
-  },
-   // {
-  //   header: 'Name',
-  //   accessorFn: row => `${row.first_name} ${row.last_name}`
-  // // },
-  // {
-  //   header: 'First Name',
-  //   accessorKey: 'first_name',
-  // },
-  // {
-  //   header: 'Last Name', 
-  //   accessorKey: 'last_name',
-  // },
-  {
-    header: 'Name',
-    columns:[
-      {
-        header: 'First',
-        accessorKey: 'first_name',
-      },
-      {
-        header: 'Last', 
-        accessorKey: 'last_name',
-      },
-    ]
-  },
-  {
-    header: 'Email',
-    accessorKey: 'email',
-  },
-];
-
-const BasicTable2 = () => {
+const DataTable = ({columns}) => {
   const data = useMemo(() => personData, []); // Using useMemo to memoize data
   const [sorting,setSorting] = useState([]);
   const [filtering,setFiltering] = useState('');
+
   const table = useReactTable({
     data,
     columns,
@@ -63,15 +28,25 @@ const BasicTable2 = () => {
     onSortingChange: setSorting,
     onGlobalFilterChange: setFiltering
   });
+  const paginationButtons = [];
+  for (let i = 0; i < table.getPageCount(); i++) {
+    paginationButtons.push(
+        <button key={i} onClick={() => table.setPageIndex(i)}>
+            {i + 1}
+        </button>
+    );
+  }
 
   return (
     <div className="basic-table">
       <h2>Basic Table</h2>
-      <input 
-        type="text" 
-        value={filtering} 
-        onChange={(e) => setFiltering(e.target.value)}
-      />
+      <div>
+        <input 
+          type="text" 
+          value={filtering} 
+          onChange={(e) => setFiltering(e.target.value)}
+        />
+      </div>
       <table border='1' cellSpacing='0' cellPadding='10'> {/* Correct the attribute names */}
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -87,10 +62,13 @@ const BasicTable2 = () => {
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                      {
-                      {asc: 'a',desc:'d'}[
-                        header.column.getIsSorted() ?? null
-                      ]}
+                      <span className='pl-1 d-none'>
+                        {
+                          {asc: 'a',desc:'d'}[
+                            header.column.getIsSorted() ?? null
+                          ]
+                        }
+                      </span>
                     </div>
                   )}
                 </th>
@@ -113,7 +91,7 @@ const BasicTable2 = () => {
           ))}
         </tbody>
       </table>
-      <div>
+      <div className='mt-3'>
         <button onClick={()=> table.setPageIndex(0)}>first</button>
         <button 
           disabled={!table.getCanPreviousPage()}
@@ -129,9 +107,10 @@ const BasicTable2 = () => {
           next
         </button>
         <button onClick={()=> table.setPageIndex(table.getPageCount() - 1)}>last</button>
+         {/* <div>{paginationButtons.map((pageCount) => pageCount)}</div> */}
       </div>
     </div>
   );
 }
 
-export default BasicTable2;
+export default DataTable;

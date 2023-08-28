@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import BasicTable from './components/BasicTable';
-import BasicTable2 from './components/BasicTable2';
-import SortingTable from './components/SortingTable';
+import UserTable from './components/usertable/Index';
 
 function App() {
 
@@ -10,8 +9,7 @@ function App() {
     <div className="table-list">
       <div className="container">
         {/* <BasicTable /> */}
-        {/* <SortingTable /> */}
-        <BasicTable2 />
+        <UserTable />
       </div>
     </div>
   );
