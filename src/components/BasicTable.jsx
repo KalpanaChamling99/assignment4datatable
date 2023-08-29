@@ -22,16 +22,16 @@ const personData = [
     age: 27
   },
   {
-    firstname: 'Tenish',
+    firstname: 'Denisha',
     lastname: 'Shrestha',
     address: 'Kirtipur',
-    age: 37
+    age: 28
   },
   {
     firstname: 'Rabina',
     lastname: 'Maharjan',
     address: 'Kirtipur 2',
-    age: 30
+    age: 29
   }
 ];
 
@@ -52,22 +52,19 @@ const columns = [
   })
 ] 
 
-function BasicTable() {
-  const [data,setData] = useState([]);
+function BasicTable({classes}) {
+  const [data,setData] = useState([...personData]);
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel()
   });
-  useEffect(()=>{
-    setData(personData);
-  },[])
 
   return (
     <div className="basic-table">
-      <h2>Sortung Table</h2>
-      <table border='1' cellSpacing='0' cellpadding='10'>
+      <h2>Basic Table</h2>
+      <table>
         <thead>
           {table.getHeaderGroups().map(headerGroup=>(
             <tr>

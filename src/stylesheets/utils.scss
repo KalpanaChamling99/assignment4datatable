@@ -1,0 +1,45 @@
+$corner:(
+  mt margin-top,
+  ml margin-left,
+  mb margin-bottom,
+  mr margin-right
+);
+
+@each $margin in $corner{
+  @for $i from 0 through 12{
+    .#{nth($margin,1)}-#{$i}{
+      #{nth($margin,2)} : $i * 5px;
+    }
+  }
+}
+// Alignment
+$text_align: center,left,right;
+$align_items:( initial initial,start flex-start,center center,end flex-end,base baseline);
+$justify_content:(initial initial,start flex-start,center center,between space-between,end flex-end,around space-around,even space-evenly);
+
+@each $textAlign in $text_align{// Text align
+  .text-#{$textAlign}{
+    text-align: $textAlign;
+  }
+}
+@each $alignItems in $align_items{// Align Items
+  .align-#{nth($alignItems,1)}{
+    align-items: nth($alignItems,2);
+  }
+}
+@each $justifyContent in $justify_content{// Justify Content
+  .justify-#{nth($justifyContent,1)}{
+    justify-content: nth($justifyContent,2);
+  }
+}
+// Display
+$displayList:none,block,initial,inline-block;
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+@each $display in $displayList{
+  .d-#{$display}{
+    display: $display;
+  }
+}

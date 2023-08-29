@@ -1,0 +1,19 @@
+.sidebar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #E2EEF5;
+  width: 250px;
+  ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li{
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(85,85,85,0.13);
+    cursor: pointer;
+  }
+}
