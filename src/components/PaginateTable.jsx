@@ -11,6 +11,10 @@ import peopleData from '../DATA.json';
 const columnHelper = createColumnHelper();
 
 const columns =[
+  columnHelper.accessor('id',{
+    cell: info => info.getValue(),
+    header: () => <>People ID</>
+  }),
   columnHelper.accessor('first_name',{
     cell: info => info.getValue(),
     header: () => <>First Name</>
@@ -75,10 +79,56 @@ const PaginateTable = () =>{
         </tbody>
       </table>
       <div className='pagination mt-6 text-center'>
-        <button onClick={()=>table.setPageIndex(0)}>first</button>
-        <button>prev</button>
-        <button>next</button>
-        <button>last</button>
+        <button 
+          onClick={()=>table.setPageIndex(0)}
+        >
+          First
+        </button>
+        <button
+          onClick={()=>table.previousPage()}
+          disabled= {!table.getCanPreviousPage()}
+        >
+          Prev
+        </button>
+        <button
+          onClick={()=>table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          next
+        </button>
+        <button 
+          onClick = {()=>table.setPageIndex(table.getPageCount() - 1)}
+        >
+          Last
+        </button>
+        <span>
+          <span>Go To page:</span>
+          <input 
+            type="number"
+            max = {table.getPageCount()}
+            min = "1"
+            defaultValue={table.getState().pagination.pageIndex + 1}
+            onChange = {(e)=>{
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              table.setPageIndex(page)
+            }}
+          />
+        </span>
+        <span>
+          <select 
+            value = {table.getState().pagination.pageSize}
+            onChange= {(e)=>{
+              table.setPageSize(Number(e.target.value))
+            }}
+          >
+            {[10,20,30,40,50].map(pageSize => (
+              <option value={pageSize} key={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+            Show
+          </select>
+        </span>
       </div>
     </div>
 
