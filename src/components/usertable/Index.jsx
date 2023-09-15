@@ -37,6 +37,10 @@ const columns = [
     header: 'Email',
     accessorKey: 'email',
   },
+  {
+    header: 'Status',
+    accessorKey: 'marital_status',
+  },
 ];
 
 const UserTable = () => {
