@@ -8,12 +8,15 @@ table{
   }
   thead{
     tr{
-      background-color: #f1f1f1;
+      background-color: transparent !important;
+    }
+    th{
+      border: 1px solid #f1f1f1;
     }
   }
   tr{
-    &:nth-child(even){
-      background-color: #f1f1f1;
+    td{
+      border: 1px solid #f1f1f1;
     }
   }
 }
