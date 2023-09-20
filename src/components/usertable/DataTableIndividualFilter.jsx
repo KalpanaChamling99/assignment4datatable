@@ -8,6 +8,7 @@ import {
   getFilteredRowModel
 } from '@tanstack/react-table';
 import personData from '../../DATA.json';
+import Select from 'react-select';
 
 const DataTableIndividualFilter = ({columns}) => {
   const data = useMemo(() => personData, []); // Using useMemo to memoize data
@@ -111,16 +112,38 @@ const DataTableIndividualFilter = ({columns}) => {
     </div>
   );
 }
+
+const options = [
+  { value: 'single', label: 'single' },
+  { value: 'divorce', label: 'divorce' },
+]
 function Filter({column}) {
   const columnFilterValue = column.getFilterValue();
+
+  const handleSelectChange = (selectedOption) => {
+    column.setFilterValue(selectedOption ? selectedOption.value : undefined);
+  };
+  
   return  (
     <div>
-      <input
-        type="text"
-        value={columnFilterValue}
-        onChange={e => column.setFilterValue(e.target.value)}
-        placeholder={`Search...`}
-    />
+      {column.id === 'marital_status' ?
+        <Select
+            options={options}
+            isClearable={true}
+            onChange={handleSelectChange}
+            value={
+              options.find((option) => option.value === columnFilterValue) || null
+            }
+            placeholder={`Select...`}
+          />
+        :
+        <input
+          type="text"
+          value={columnFilterValue}
+          onChange={e => column.setFilterValue(e.target.value)}
+          placeholder={`Search...`}
+        />
+        }
     </div>
   )
 }
