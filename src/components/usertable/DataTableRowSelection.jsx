@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'; // Correct the import statements
+import React, { useMemo, useState , useEffect, useRef} from 'react'; // Correct the import statements
 import {
   getCoreRowModel,
   flexRender,
@@ -9,19 +9,30 @@ import {
 } from '@tanstack/react-table';
 import personData from '../../DATA.json';
 const columns = [
- 
-  // {
- //   header: 'Name',
- //   accessorFn: row => `${row.first_name} ${row.last_name}`
- // // },
- // {
- //   header: 'First Name',
- //   accessorKey: 'first_name',
- // },
- // {
- //   header: 'Last Name', 
- //   accessorKey: 'last_name',
- // },
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <IndeterminateCheckbox
+        {...{
+          checked: table.getIsAllRowsSelected(),
+          indeterminate: table.getIsSomeRowsSelected(),
+          onChange: table.getToggleAllRowsSelectedHandler(),
+        }}
+      />
+    ),
+    cell: ({ row }) => (
+      <div className="px-1">
+        <IndeterminateCheckbox
+          {...{
+            checked: row.getIsSelected(),
+            disabled: !row.getCanSelect(),
+            indeterminate: row.getIsSomeSelected(),
+            onChange: row.getToggleSelectedHandler(),
+          }}
+        />
+      </div>
+    ),
+  },
  {
    header: 'Name',
    columns:[
@@ -48,7 +59,7 @@ const DataTableRowSelection = () => {
   const data = useMemo(() => personData, []); // Using useMemo to memoize data
   const [sorting,setSorting] = useState([]);
   const [filtering,setFiltering] = useState('');
-
+  const [rowSelection, setRowSelection] = useState({})
   const table = useReactTable({
     data,
     columns,
@@ -61,7 +72,7 @@ const DataTableRowSelection = () => {
       globalFilter: filtering
     },
     onSortingChange: setSorting,
-    onGlobalFilterChange: setFiltering
+    onGlobalFilterChange: setFiltering,
   });
   const paginationButtons = [];
   for (let i = 0; i < table.getPageCount(); i++) {
@@ -75,6 +86,7 @@ const DataTableRowSelection = () => {
   return (
     <div className="basic-table">
       <h2>Row Selection</h2>
+     
       <div>
         <input 
           type="text" 
@@ -146,6 +158,25 @@ const DataTableRowSelection = () => {
       </div>
     </div>
   );
+}
+function IndeterminateCheckbox({
+  indeterminate,
+  className = '',
+  ...rest
+}) {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current.indeterminate = !rest.checked && indeterminate
+  }, [ref, indeterminate])
+
+  return (
+    <input
+      type="checkbox"
+      ref={ref}
+      {...rest}
+    />
+  )
 }
 
 export default DataTableRowSelection;
