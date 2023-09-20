@@ -19,7 +19,7 @@ const DataTableIndividualFilter = ({columns}) => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    // getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     state:{
@@ -92,7 +92,7 @@ const DataTableIndividualFilter = ({columns}) => {
           ))}
         </tbody>
       </table>
-      <div className='mt-3'>
+      <div className='mt-3 d-none'>
         <button onClick={()=> table.setPageIndex(0)}>first</button>
         <button 
           disabled={!table.getCanPreviousPage()}
@@ -116,21 +116,21 @@ const DataTableIndividualFilter = ({columns}) => {
 const options = [
   { value: 'single', label: 'single' },
   { value: 'divorce', label: 'divorce' },
+  { value: 'married', label: 'married' },
 ]
-function Filter({column}) {
+
+function Filter({column,table}) {
   const columnFilterValue = column.getFilterValue();
 
-  const handleSelectChange = (selectedOption) => {
-    column.setFilterValue(selectedOption ? selectedOption.value : undefined);
-  };
-  
   return  (
     <div>
       {column.id === 'marital_status' ?
         <Select
             options={options}
             isClearable={true}
-            onChange={handleSelectChange}
+            onChange={(selectedOption) => {
+              column.setFilterValue(selectedOption ? selectedOption.value : undefined);
+            }}
             value={
               options.find((option) => option.value === columnFilterValue) || null
             }
@@ -148,3 +148,4 @@ function Filter({column}) {
   )
 }
 export default DataTableIndividualFilter;
+// https://codesandbox.io/s/sleepy-poitras-6brjuc?fontsize=14&hidenavigation=1&theme=dark

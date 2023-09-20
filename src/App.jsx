@@ -9,7 +9,7 @@ import GroupingTable from './components/grouping/Index';
 import UserTable from './components/usertable/Index';
 
 function App() {
-  const [showBasicTable,setShowBasicTable] = useState(false);
+  const [showBasicTable,setShowBasicTable] = useState(true);
   const [showpaginateTable,setShowPaginateTable] = useState(false);
   const [showComplexTable,setShowComplexTable] = useState(false);
   const [showGroupingTable,setShowGroupingTable] = useState(false);
@@ -50,7 +50,7 @@ function App() {
           {/* <li>Filter Table</li> */}
           <li  onClick={complexTableHandler}>Complex Table</li>
           <li onClick={groupingTableHandler}>Grouping Table</li>
-          <li class='active' onClick={userTableHandler}>User Table</li>
+          <li class='active--' onClick={userTableHandler}>User Table</li>
         </ul>
       </div>
       <div className="content">
@@ -60,7 +60,6 @@ function App() {
           {showComplexTable && <ComplexTable />}
           {showGroupingTable && <GroupingTable />}
           {showUserTable && <UserTable />}
-          <UserTable />
         </div>
       </div>
     </>
