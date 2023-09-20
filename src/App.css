@@ -32,7 +32,7 @@ button{
   border: 0;
   cursor: pointer;
 }
-input{
+input[type='text']{
   border: 1px solid rgba(96,125,139,0.38);
   padding: 10px 15px;
   border-radius: 5px;

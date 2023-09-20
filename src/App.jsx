@@ -55,6 +55,8 @@ function App() {
       </div>
       <div className="content">
         <div className="container">
+        <input type="checkbox" name="" id=""/>hello
+
           {showBasicTable && <BasicTable />}
           {showpaginateTable && <PaginateTable />}
           {showComplexTable && <ComplexTable />}
