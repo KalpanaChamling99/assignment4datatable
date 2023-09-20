@@ -4,10 +4,7 @@ import DataTableIndividualFilter from './DataTableIndividualFilter';
 import DataTableSorting from './DataTableSorting';
 
 const columns = [
-  {
-    header: 'ID',
-    accessorKey: 'id'
-  },
+ 
    // {
   //   header: 'Name',
   //   accessorFn: row => `${row.first_name} ${row.last_name}`

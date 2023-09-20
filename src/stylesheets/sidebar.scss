@@ -15,5 +15,8 @@
     padding: 10px 15px;
     border-bottom: 1px solid rgba(85,85,85,0.13);
     cursor: pointer;
+    &.active{
+      background-color: #a7bdca;
+    }
   }
 }

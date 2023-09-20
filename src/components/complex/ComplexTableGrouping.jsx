@@ -59,7 +59,7 @@ const columns = [
 ];
 
 
-const ComplexTable = () => {
+const ComplexTableGrouping = () => {
   const [data,setData] = useState([...peopleData]);
   const table = useReactTable({
     data,
@@ -107,4 +107,4 @@ const ComplexTable = () => {
     </div>
   )
 }
-export default ComplexTable;
+export default ComplexTableGrouping;

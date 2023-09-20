@@ -69,7 +69,7 @@ const GroupingTable = () =>{
                         }}
                       >
                         {header.column.getIsGrouped()
-                          ? `ug(${header.column.getGroupedIndex()}) `
+                          ? `ug`
                           : `g `}
                       </button>
                     ) : null }
@@ -131,3 +131,5 @@ const GroupingTable = () =>{
 }
 
 export default GroupingTable;
+
+// https://tanstack.com/table/v8/docs/examples/react/grouping

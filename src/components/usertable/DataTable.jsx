@@ -39,7 +39,7 @@ const DataTable = ({columns}) => {
 
   return (
     <div className="basic-table">
-      <h2>Basic Table</h2>
+      <h2>Sorting Table with search</h2>
       <div>
         <input 
           type="text" 

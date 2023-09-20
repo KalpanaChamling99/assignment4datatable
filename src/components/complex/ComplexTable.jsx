@@ -65,7 +65,7 @@ const ComplexTable = () => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel()
+    // getPaginationRowModel: getPaginationRowModel()
   })
   return(
     <div className="complex-table">
