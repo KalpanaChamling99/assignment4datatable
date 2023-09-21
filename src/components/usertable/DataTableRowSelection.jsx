@@ -59,7 +59,7 @@ const DataTableRowSelection = () => {
   const data = useMemo(() => personData, []); // Using useMemo to memoize data
   const [sorting,setSorting] = useState([]);
   const [filtering,setFiltering] = useState('');
-  const [rowSelection, setRowSelection] = useState({})
+  const [selectedRowData,setSelectedRowData] = useState({});
   const table = useReactTable({
     data,
     columns,
@@ -82,6 +82,14 @@ const DataTableRowSelection = () => {
         </button>
     );
   }
+  const showSelectedRowHandler = () =>{
+    setSelectedRowData(table.getSelectedRowModel().flatRows);
+    console.log('data',table.getSelectedRowModel().flatRows);
+  }
+
+  useEffect(()=>{
+
+  },[selectedRowData]);
 
   return (
     <div className="basic-table">
@@ -138,6 +146,16 @@ const DataTableRowSelection = () => {
           ))}
         </tbody>
       </table>
+
+      <div className='selected-row-section mt-3'>
+        <button
+          className="border rounded p-2 mb-2"
+          onClick={showSelectedRowHandler}
+        >
+          Show Selected Row
+        </button>
+      </div>
+
       <div className='mt-3'>
         <button onClick={()=> table.setPageIndex(0)}>first</button>
         <button 
