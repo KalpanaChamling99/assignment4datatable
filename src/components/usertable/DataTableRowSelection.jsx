@@ -60,6 +60,7 @@ const DataTableRowSelection = () => {
   const [sorting,setSorting] = useState([]);
   const [filtering,setFiltering] = useState('');
   const [selectedRowData,setSelectedRowData] = useState({});
+
   const table = useReactTable({
     data,
     columns,
@@ -82,15 +83,6 @@ const DataTableRowSelection = () => {
         </button>
     );
   }
-  const showSelectedRowHandler = () =>{
-    setSelectedRowData(table.getSelectedRowModel().flatRows);
-    console.log('data',table.getSelectedRowModel().flatRows);
-  }
-
-  useEffect(()=>{
-
-  },[selectedRowData]);
-
   return (
     <div className="basic-table">
       <h2>Row Selection</h2>
@@ -150,10 +142,22 @@ const DataTableRowSelection = () => {
       <div className='selected-row-section mt-3'>
         <button
           className="border rounded p-2 mb-2"
-          onClick={showSelectedRowHandler}
+          onClick={ (e) => setSelectedRowData(table.getSelectedRowModel().flatRows) }
         >
           Show Selected Row
         </button>
+        <div>length: { selectedRowData.length }</div>
+          {selectedRowData.length > 0 ?
+            <div> 
+              {selectedRowData.map(item => (
+                <div>
+                  {item.original['first_name']}
+                </div>
+              ))}
+            </div>
+          :
+            <div>Rows are not selected</div>
+          }
       </div>
 
       <div className='mt-3'>
