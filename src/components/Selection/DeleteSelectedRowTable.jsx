@@ -30,16 +30,15 @@ const DeleteSelectedRowTable = ({columns}) => {
     e.preventDefault();
     const selectedRow = table.getSelectedRowModel().flatRows;
     console.log('selected row', selectedRow);
-
-    const updatedData = data.filter((row) => !selectedRow.includes(row.id));
-    console.log('updated data', updatedData);
+    const newData = data.filter((row) => !(selectedRow.includes(row.id)));
+    console.log('updated data', newData);
 
 
   };
 
   return (
     <div className="table">
-      <h2>Show Selected Row</h2>
+      <h2>Delete Selected Row</h2>
       <table border='1' cellSpacing='0' cellPadding='10'> 
         <thead>
           {table.getHeaderGroups().map(headerGroup => (

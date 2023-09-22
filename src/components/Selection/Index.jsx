@@ -73,8 +73,8 @@ function IndeterminateCheckbox({
 const SelectionTable = () =>{
   return(
     <div className='row-selection-table'>
-      {/* <RowSelectionTable columns={columns} /> */}
-      {/* <ShowSelectedRowTable columns={columns}/> */}
+      <RowSelectionTable columns={columns} />
+      <ShowSelectedRowTable columns={columns}/>
       <DeleteSelectedRowTable columns={columns} />
     </div>
   )
