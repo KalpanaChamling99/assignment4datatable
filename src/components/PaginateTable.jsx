@@ -46,7 +46,7 @@ const PaginateTable = () =>{
     getPaginationRowModel: getPaginationRowModel()
   })
   return (
-    <div class="paginate-table">
+    <div className="paginate-table">
       <h2>Table with pagination</h2>
       <table>
         <thead>

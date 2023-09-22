@@ -2,7 +2,6 @@ import React from 'react'; // Correct the import statements
 import DataTable from './DataTable';
 import DataTableIndividualFilter from './DataTableIndividualFilter';
 import DataTableSorting from './DataTableSorting';
-import DataTableRowSelection from './DataTableRowSelection';
 
 const columns = [
  
@@ -44,10 +43,9 @@ const columns = [
 const UserTable = () => {
   return (
     <>
-    {/* <DataTable columns={columns}/> */}
-    {/* <DataTableIndividualFilter columns={columns}/> */}
-    {/* <DataTableSorting columns={columns}/> */}
-    <DataTableRowSelection />
+    <DataTable columns={columns}/>
+    <DataTableIndividualFilter columns={columns}/>
+    <DataTableSorting columns={columns}/>
    </>
   );
 }

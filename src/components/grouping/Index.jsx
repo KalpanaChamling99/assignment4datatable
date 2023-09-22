@@ -49,7 +49,7 @@ const GroupingTable = () =>{
   });
 
   return (
-    <div class="Grouping-table">
+    <div className="Grouping-table">
       <h2>Grouping table</h2>
       <table>
         <thead>

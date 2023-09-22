@@ -65,7 +65,7 @@ const DataTableIndividualFilter = ({columns}) => {
                           </span>
                         </div>
                         {header.column.getCanFilter() ? (
-                          <div class="w-100">
+                          <div className="w-100">
                             <Filter column={header.column} table={table} />
                           </div>
                         ) : null}

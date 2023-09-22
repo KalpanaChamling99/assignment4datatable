@@ -1,4 +1,4 @@
-import React, { useMemo, useState , useEffect, useRef} from 'react'; // Correct the import statements
+import React, { useMemo, useState , useEffect, useRef} from 'react'; 
 import {
   getCoreRowModel,
   flexRender,
@@ -8,54 +8,8 @@ import {
   getFilteredRowModel
 } from '@tanstack/react-table';
 import personData from '../../DATA.json';
-const columns = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <IndeterminateCheckbox
-        {...{
-          checked: table.getIsAllRowsSelected(),
-          indeterminate: table.getIsSomeRowsSelected(),
-          onChange: table.getToggleAllRowsSelectedHandler(),
-        }}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className="px-1">
-        <IndeterminateCheckbox
-          {...{
-            checked: row.getIsSelected(),
-            disabled: !row.getCanSelect(),
-            indeterminate: row.getIsSomeSelected(),
-            onChange: row.getToggleSelectedHandler(),
-          }}
-        />
-      </div>
-    ),
-  },
- {
-   header: 'Name',
-   columns:[
-     {
-       header: 'First',
-       accessorKey: 'first_name',
-     },
-     {
-       header: 'Last', 
-       accessorKey: 'last_name',
-     },
-   ]
- },
- {
-   header: 'Email',
-   accessorKey: 'email',
- },
- {
-   header: 'Status',
-   accessorKey: 'marital_status',
- },
-];
-const DataTableRowSelection = () => {
+
+const RowSelectionTable = ({columns}) => {
   const data = useMemo(() => personData, []); // Using useMemo to memoize data
   const [sorting,setSorting] = useState([]);
   const [filtering,setFiltering] = useState('');
@@ -76,6 +30,7 @@ const DataTableRowSelection = () => {
     onGlobalFilterChange: setFiltering,
   });
   const paginationButtons = [];
+  
   for (let i = 0; i < table.getPageCount(); i++) {
     paginationButtons.push(
         <button key={i} onClick={() => table.setPageIndex(i)}>
@@ -84,9 +39,8 @@ const DataTableRowSelection = () => {
     );
   }
   return (
-    <div className="basic-table">
+    <div className="table">
       <h2>Row Selection</h2>
-     
       <div>
         <input 
           type="text" 
@@ -94,6 +48,7 @@ const DataTableRowSelection = () => {
           onChange={(e) => setFiltering(e.target.value)}
         />
       </div>
+
       <table border='1' cellSpacing='0' cellPadding='10'> {/* Correct the attribute names */}
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -123,6 +78,7 @@ const DataTableRowSelection = () => {
             </tr>
           ))}
         </thead>
+        
         <tbody>
           {table.getRowModel().rows.map(row => (
             <tr key={row.id}>
@@ -138,27 +94,6 @@ const DataTableRowSelection = () => {
           ))}
         </tbody>
       </table>
-
-      <div className='selected-row-section mt-3'>
-        <button
-          className="border rounded p-2 mb-2"
-          onClick={ (e) => setSelectedRowData(table.getSelectedRowModel().flatRows) }
-        >
-          Show Selected Row
-        </button>
-        <div>length: { selectedRowData.length }</div>
-          {selectedRowData.length > 0 ?
-            <div> 
-              {selectedRowData.map(item => (
-                <div>
-                  {item.original['first_name']}
-                </div>
-              ))}
-            </div>
-          :
-            <div>Rows are not selected</div>
-          }
-      </div>
 
       <div className='mt-3'>
         <button onClick={()=> table.setPageIndex(0)}>first</button>
@@ -181,24 +116,5 @@ const DataTableRowSelection = () => {
     </div>
   );
 }
-function IndeterminateCheckbox({
-  indeterminate,
-  className = '',
-  ...rest
-}) {
-  const ref = useRef();
 
-  useEffect(() => {
-    ref.current.indeterminate = !rest.checked && indeterminate
-  }, [ref, indeterminate])
-
-  return (
-    <input
-      type="checkbox"
-      ref={ref}
-      {...rest}
-    />
-  )
-}
-
-export default DataTableRowSelection;
+export default RowSelectionTable;
