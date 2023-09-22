@@ -26,16 +26,23 @@ const DeleteSelectedRowTable = ({columns}) => {
     onSortingChange: setSorting,
   });
  
+  // const handleDelete = (e) => {
+  //   e.preventDefault();
+  //   const selectedRow = table.getSelectedRowModel().flatRows;
+  //   console.log('selected row', selectedRow);
+  //   const newData = data.filter((row) => !(selectedRow.includes(row.id)));
+  //   console.log('updated data', newData);
+
+
+  // };
   const handleDelete = (e) => {
     e.preventDefault();
-    const selectedRow = table.getSelectedRowModel().flatRows;
-    console.log('selected row', selectedRow);
-    const newData = data.filter((row) => !(selectedRow.includes(row.id)));
+    const selectedRowIds = table.getSelectedRowModel().flatRows.map(row => row.original.id);
+    console.log('selected row IDs', selectedRowIds);
+    const newData = data.filter((row) => !selectedRowIds.includes(row.id));
     console.log('updated data', newData);
-
-
   };
-
+  
   return (
     <div className="table">
       <h2>Delete Selected Row</h2>
