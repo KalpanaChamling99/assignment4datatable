@@ -33,6 +33,15 @@ const columns = [
   {
     header: 'Date',
     accessorKey: 'date',
+    filterFn: (row, columnId, filterValue) => {
+      if (!filterValue) return true;
+      const rowDate = new Date(row.getValue(columnId));
+      const filterDate = new Date(filterValue);
+      return (
+        rowDate <= filterDate ||
+        rowDate.toISOString().split('T')[0] === filterValue
+      );
+    },
   },
   {
     header: 'Email',
