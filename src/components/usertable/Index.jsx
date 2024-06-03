@@ -4,7 +4,7 @@ import DataTableIndividualFilter from './DataTableIndividualFilter';
 import DataTableSorting from './DataTableSorting';
 
 const columns = [
- 
+
    // {
   //   header: 'Name',
   //   accessorFn: row => `${row.first_name} ${row.last_name}`
@@ -14,7 +14,7 @@ const columns = [
   //   accessorKey: 'first_name',
   // },
   // {
-  //   header: 'Last Name', 
+  //   header: 'Last Name',
   //   accessorKey: 'last_name',
   // },
   {
@@ -25,10 +25,14 @@ const columns = [
         accessorKey: 'first_name',
       },
       {
-        header: 'Last', 
+        header: 'Last',
         accessorKey: 'last_name',
       },
     ]
+  },
+  {
+    header: 'Date',
+    accessorKey: 'date',
   },
   {
     header: 'Email',

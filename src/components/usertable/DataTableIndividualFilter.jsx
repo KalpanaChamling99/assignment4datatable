@@ -34,9 +34,9 @@ const DataTableIndividualFilter = ({columns}) => {
     <div className="basic-table">
       <h2>Individual Filter with sorting</h2>
       <div>
-        <input 
-          type="text" 
-          value={filtering} 
+        <input
+          type="text"
+          value={filtering}
           onChange={(e) => setFiltering(e.target.value)}
         />
       </div>
@@ -46,8 +46,8 @@ const DataTableIndividualFilter = ({columns}) => {
             <>
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th 
-                    key={header.id} 
+                  <th
+                    key={header.id}
                   >
                     {header.isPlaceholder ? null :(
                       <>
@@ -94,14 +94,14 @@ const DataTableIndividualFilter = ({columns}) => {
       </table>
       <div className='mt-3 d-none'>
         <button onClick={()=> table.setPageIndex(0)}>first</button>
-        <button 
+        <button
           disabled={!table.getCanPreviousPage()}
           onClick={()=>table.previousPage()}
         >
           prev
         </button>
 
-        <button 
+        <button
           onClick={()=>table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
@@ -121,7 +121,7 @@ const options = [
 
 function Filter({column,table}) {
   const columnFilterValue = column.getFilterValue();
-
+  console.log('filter value',columnFilterValue)
   return  (
     <div>
       {column.id === 'marital_status' ?
@@ -136,6 +136,14 @@ function Filter({column,table}) {
             }
             placeholder={`Select...`}
           />
+        :
+        column.id === "date" ?
+        <input
+          type="date"
+          value={columnFilterValue}
+          onChange={e => column.setFilterValue(e.target.value)}
+          placeholder={`date filter...`}
+        />
         :
         <input
           type="text"
